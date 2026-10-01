@@ -14,8 +14,11 @@ jobs:
       - name: Prepare environment
         run: cp .env.example .env
 
+      - name: Build images
+        run: docker compose build
+
       - name: Start containers
-        run: docker compose up -d app --wait
+        run: docker compose up -d --wait
 
       - name: Show container status
         if: always()
@@ -24,6 +27,9 @@ jobs:
       - name: Show logs on failure
         if: failure()
         run: docker compose logs
+
+      - name: Run migrations
+        run: docker compose exec -T app php artisan migrate
 
       - name: Run tests
         run: docker compose exec -T app php artisan test
