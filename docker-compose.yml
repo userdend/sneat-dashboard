@@ -19,7 +19,7 @@ services:
     # ports:
     #   - "80:80"
     environment:
-      APP_ENV: development
+      APP_ENV: production
       APP_DEBUG: false
       APP_KEY: ${APP_KEY}
     depends_on:
