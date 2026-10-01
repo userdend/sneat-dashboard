@@ -15,11 +15,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Start containers
-        run: docker compose up -d app mysql --wait
-
-      - name: Show MySQL logs
-        if: always()
-        run: docker compose logs mysql
+        run: docker compose up -d app --wait
 
       - name: Show container status
         if: always()
@@ -28,9 +24,6 @@ jobs:
       - name: Show logs on failure
         if: failure()
         run: docker compose logs
-
-      # - name: Run migration
-      #   run: docker compose exec -T app php artisan migrate
 
       - name: Run tests
         run: docker compose exec -T app php artisan test
