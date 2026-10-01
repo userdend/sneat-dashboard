@@ -34,6 +34,11 @@ jobs:
       - name: Run tests
         run: docker compose exec -T app php artisan test
 
+      - name: Check merge with main
+        run: |
+          git fetch origin main
+          git merge --no-commit --no-ff origin/main
+
       - name: Stop containers
         if: always()
         run: docker compose down -v
