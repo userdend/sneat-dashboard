@@ -29,8 +29,8 @@ jobs:
         if: failure()
         run: docker compose logs
 
-      - name: Run migration
-        run: docker compose exec -T app php artisan migrate
+      # - name: Run migration
+      #   run: docker compose exec -T app php artisan migrate
 
       - name: Run tests
         run: docker compose exec -T app php artisan test
