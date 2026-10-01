@@ -11,12 +11,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Prepare environment
+        run: cp .env.example .env
+
       - name: Start containers
-        run: docker compose up --target development -d app mysql
+        run: docker compose up -d app mysql
+
+      - name: Run migration
+        run: docker compose exec -T app php artisan migrate
+
+      - name: Generate app key
+        run: docker compose exec -T app php artisan key:generate
 
       - name: Run tests
         run: docker compose exec -T app php artisan test
 
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
       - name: Stop containers
         if: always()
-        run: docker compose down
+        run: docker compose down -v

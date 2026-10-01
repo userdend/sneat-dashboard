@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Build base image
-FROM php:8.3-apache as development
+FROM php:8.3-apache as base
 LABEL maintainer="boyd"
 WORKDIR /var/www/html
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
