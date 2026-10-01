@@ -15,12 +15,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    # container_name: app-test-3
-    # ports:
-    #   - "80:80"
     environment:
       APP_ENV: ${APP_ENV}
-      APP_DEBUG: false
+      APP_DEBUG: ${APP_DEBUG}
       APP_KEY: ${APP_KEY}
     depends_on:
       mysql:
