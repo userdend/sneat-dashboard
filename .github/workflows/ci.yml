@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push: # Runs when commits are pushed to any branch, including a newly pushed branch.
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start containers
+        run: docker compose up --target development -d app mysql
+
+      - name: Run tests
+        run: docker compose exec -T app php artisan test
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down
