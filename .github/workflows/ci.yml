@@ -17,6 +17,18 @@ jobs:
       - name: Start containers
         run: docker compose up -d app mysql
 
+      - name: Show MySQL logs
+        if: always()
+        run: docker compose logs mysql
+
+      - name: Show container status
+        if: always()
+        run: docker compose ps
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
       - name: Run migration
         run: docker compose exec -T app php artisan migrate
 
@@ -25,10 +37,6 @@ jobs:
 
       - name: Run tests
         run: docker compose exec -T app php artisan test
-
-      - name: Show logs on failure
-        if: failure()
-        run: docker compose logs
 
       - name: Stop containers
         if: always()
