@@ -29,9 +29,6 @@ jobs:
         if: failure()
         run: docker compose logs
 
-      - name: Generate app key
-        run: docker compose exec -T app php artisan key:generate
-
       - name: Run migration
         run: docker compose exec -T app php artisan migrate
 
